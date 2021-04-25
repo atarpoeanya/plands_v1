@@ -1,4 +1,3 @@
-import 'dart:html';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -35,20 +34,24 @@ class _MyHomePage extends State {
 
   @override
   Widget build(BuildContext context) {
-    final List _childern = [
-      Center(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-        ),
-      )
-    ];
     return Scaffold(
       body: Stack(
         children: [
           topBar(),
-          _childern[0],
           Positioned(left: 0, right: 0, bottom: 0, child: bottomNavbar()),
         ],
+      ),
+    );
+  }
+
+  Widget cards() {
+    return Center(
+      child: Card(
+        child: Container(
+          padding: EdgeInsets.all(8.0),
+          width: 500,
+          height: 300,
+        ),
       ),
     );
   }
@@ -56,6 +59,11 @@ class _MyHomePage extends State {
   Widget topBar() {
     return Scaffold(
       appBar: AppBar(
+        title: Image.asset(
+          'asset/logo.png',
+          fit: BoxFit.contain,
+          height: 120,
+        ),
         backgroundColor: Colors.white,
         elevation: 0,
         actions: [
