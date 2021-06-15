@@ -1,150 +1,41 @@
 import 'package:flutter/material.dart';
+import 'package:plands_v1/Home.dart';
 
 void main() {
-  runApp(MyApp());
+  runApp(
+    MaterialApp(
+      title: 'Named Routes Demo',
+      // Start the app with the "/" named route. In this case, the app starts
+      // on the FirstScreen widget.
+      initialRoute: '/',
+      routes: {
+        // When navigating to the "/" route, build the FirstScreen widget.
+        '/': (context) => Home(),
+        // When navigating to the "/second" route, build the SecondScreen widget.
+        '/second': (context) => SecondScreen(),
+      },
+    ),
+  );
 }
 
-class MyApp extends StatelessWidget {
-  final PageController ctrl = PageController();
-
+class SecondScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: MyHomePage(),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  // const MyHomePage({Key? key}) :
-  // super(key: key);
-
-  @override
-  _MyHomePage createState() => _MyHomePage();
-}
-
-class _MyHomePage extends State {
-  int selectedIndex = 0;
-
-  void _onItemTapped(int index) {
-    setState(() {
-      selectedIndex = index;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: Stack(
-        children: [
-          topBar(),
-          Positioned(left: 0, right: 0, bottom: 0, child: bottomNavbar()),
-        ],
-      ),
-    );
-  }
-
-  Widget cards() {
-    return Center(
-      child: Card(
-        child: Container(
-          padding: EdgeInsets.all(8.0),
-          width: 500,
-          height: 300,
-        ),
-      ),
-    );
-  }
-
-  Widget topBar() {
     return Scaffold(
       appBar: AppBar(
-        title: Image.asset(
-          'asset/logo.png',
-          fit: BoxFit.contain,
-          height: 120,
+        title: Text('Second Screen'),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          // Within the SecondScreen widget
+          onPressed: () {
+            // Navigate back to the first screen by popping the current route
+            // off the stack.
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
         ),
-        backgroundColor: Colors.white,
-        elevation: 0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.notifications),
-            color: Colors.black,
-            onPressed: () {},
-          ),
-          IconButton(
-              icon: Icon(Icons.settings), color: Colors.black, onPressed: () {})
-        ],
       ),
     );
-  }
-
-  Widget bottomNavbar() {
-    return Container(
-        margin: EdgeInsets.only(left: 5, right: 5),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, -3),
-              )
-            ]),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-          child: BottomNavigationBar(
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-            type: BottomNavigationBarType.fixed,
-            elevation: 0,
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: Colors.black,
-                    size: 60,
-                  ),
-                  label: "Home"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.calendar_today,
-                    color: Colors.black,
-                    size: 60,
-                  ),
-                  label: "Schedule"),
-              // BottomNavigationBarItem(
-              //     icon: Icon(
-              //       Icons.add_circle,
-              //       color: Colors.red,
-              //       size: 100,
-              //     ),
-              //     label: "Add"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.fact_check_outlined,
-                    color: Colors.black,
-                    size: 60,
-                  ),
-                  label: "Timeline"),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.person_pin,
-                    color: Colors.black,
-                    size: 60,
-                  ),
-                  label: "Profile"),
-            ],
-            currentIndex: selectedIndex,
-            onTap: _onItemTapped,
-          ),
-        ));
   }
 }
