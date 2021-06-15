@@ -12,13 +12,13 @@ void main() {
         // When navigating to the "/" route, build the FirstScreen widget.
         '/': (context) => Home(),
         // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => SecondScreen(),
+        '/second': (context) => AddSchedulePage(),
       },
     ),
   );
 }
 
-class SecondScreen extends StatelessWidget {
+class AddSchedulePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

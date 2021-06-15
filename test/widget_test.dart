@@ -8,7 +8,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
-import 'package:plands_v1/main.dart';
+// import 'package:plands_v1/main.dart';
 import 'package:plands_v1/Home.dart';
 
 void main() {
