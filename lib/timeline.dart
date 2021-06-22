@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'dart:async';
-
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
-
 class Home extends StatefulWidget {
   @override
   State<Home> createState() => _Home();
@@ -68,51 +63,49 @@ class _Home extends State<Home> {
               key: centerKey,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  for (int i = 0; i < 2; i++) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: Colors.blue,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 5,
-                            blurRadius: 7,
-                            offset: Offset(0, 3), // changes position of shadow
-                          ),
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.blue,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 5,
+                          blurRadius: 7,
+                          offset: Offset(0, 3), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    height: 100,
+                    width: 50,
+                    margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
+                    child: ElevatedButton(
+                      child: Row(
+                        children: [
+                          Icon(Icons.ac_unit),
+                          Column(
+                            verticalDirection: VerticalDirection.down,
+                            children: [
+                              Container(
+                                child: Text('Test'),
+                              ),
+                              Container(
+                                child: Text('TIME1'),
+                              ),
+                              Icon(Icons.remove),
+                              Container(
+                                child: Text('TIME2'),
+                              )
+                            ],
+                          )
                         ],
                       ),
-                      alignment: Alignment.center,
-                      height: 100,
-                      width: 50,
-                      margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
-                      child: ElevatedButton(
-                        child: Row(
-                          children: [
-                            Icon(Icons.ac_unit),
-                            Column(
-                              verticalDirection: VerticalDirection.down,
-                              children: [
-                                Container(
-                                  child: Text('Test'),
-                                ),
-                                Container(
-                                  child: Text('TIME1'),
-                                ),
-                                Icon(Icons.remove),
-                                Container(
-                                  child: Text('TIME2'),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/second');
-                        },
-                      ),
-                    );
-                  }
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/second');
+                      },
+                    ),
+                  );
                 },
                 childCount: bottom.length,
               ),
@@ -158,15 +151,4 @@ class _Home extends State<Home> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-}
-
-class Jadwal {
-  final String nama;
-  final DateTime firstDate;
-  final DateTime secondDate;
-
-  Jadwal(
-      {@required this.nama,
-      @required this.firstDate,
-      @required this.secondDate});
 }
