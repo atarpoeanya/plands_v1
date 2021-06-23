@@ -23,9 +23,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sqflite: any
+  path_provider: any
+    
+    
 
   flutter_localizations:
     sdk: flutter
+   
+  
   flutter_rounded_date_picker: 1.0.0
 
   intl: ">=0.16.0 <=0.17.0"

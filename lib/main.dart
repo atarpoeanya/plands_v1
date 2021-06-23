@@ -45,8 +45,8 @@ class _AddSchedulePage extends State {
 
   @override
   void initState() {
-    fromDate = DateTime(DateTime.now());
-    toDate = DateTime(DateTime.now());
+    fromDate = DateTime.now();
+    toDate = DateTime.now();
     super.initState();
   }
 
