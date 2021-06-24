@@ -111,18 +111,18 @@ class _Home extends State<Home> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               //Font Family sama Size Teks diganti//
-                              RichText(text: TextSpan(
-                                text: "Judul jadwal tertera disini",
+                              Text(
+                                "Judul jadwal tertera disini",
                                 style: TextStyle(color: Colors.blue)
-                              )),
+                              ),
                               Row(
                                 children: [
                                   Column(
                                     children: [
-                                      RichText(text: TextSpan(
-                                        text: "Tanggal Mulai",
+                                      Text(
+                                        "Tanggal Mulai",
                                         style: TextStyle(color: Colors.black)
-                                      )),
+                                      ),
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
@@ -135,21 +135,21 @@ class _Home extends State<Home> {
                                   ),
                                   Column(
                                     children: [
-                                      RichText(text: TextSpan(
-                                        text: "  -  ",
+                                      Text(
+                                        "  -  ",
                                         style: TextStyle(
                                           color: Colors.black,
                                           fontSize: 20
                                         )
-                                      )),
+                                      ),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      RichText(text: TextSpan(
-                                        text: "Tanggal Selesai",
+                                      Text(
+                                        "Tanggal Selesai",
                                         style: TextStyle(color: Colors.black)
-                                      )),
+                                      ),
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
