@@ -72,38 +72,102 @@ class _AddSchedulePage extends State {
               Column(
                 children: [
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.grey),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          )
+                        )
+                      ),
                       onPressed: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Text('Form Thu, 22 Apr 2021 21:30 >'),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('From', style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black
+                            ),),
+                            Text('Thu, 22 Apr 2021 21:30', style: TextStyle(color: Colors.black))
+                          ],
+                        ),
                       )),
                   SizedBox(height: 5),
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.grey),
-                      onPressed: () {},
-                      child: Container(
-                          width: MediaQuery.of(context).size.width,
-                          child: Row(
-                            children: [Text('Form'), new Text(i.toString())],
-                          ))),
-                  SizedBox(height: 5),
-                  ElevatedButton(
-                      style: ElevatedButton.styleFrom(primary: Colors.grey),
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          )
+                        )
+                      ),
                       onPressed: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
-                        child: Text('Repeat One-time event >'),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('To', style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black
+                            ),),
+                            Text('Thu, 22 Apr 2021 22:30', style: TextStyle(color: Colors.black))
+                          ],
+                        ),
+                      )),
+                  SizedBox(height: 5),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          )
+                        )
+                      ),
+                      onPressed: () {},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Repeat', style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black
+                            ),),
+                            Text('Once', style: TextStyle(color: Colors.black))
+                          ],
+                        ),
                       )),
                 ],
               ),
               SizedBox(height: 40),
               ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.grey),
+                style: ButtonStyle(
+                  backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,                        )
+                  )
+                ),
                 onPressed: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
-                  child: Text('Reminder 5 minutes Before >'),
+                  child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Reminder', style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: Colors.black
+                            )),
+                            Text('5 minutes before', style: TextStyle(
+                              color: Colors.black
+                            ))
+                          ],
+                        ),
                 ),
               ),
               SizedBox(height: 50),
@@ -117,6 +181,7 @@ class _AddSchedulePage extends State {
                         child: Text(
                           'Save',
                           textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 25),
                         ),
                       ))),
               SizedBox(height: 5),
