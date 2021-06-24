@@ -68,45 +68,104 @@ class _Home extends State<Home> {
               key: centerKey,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
+                  //Mulai Kotak//
                   return Container(
                     decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(20),
                       color: Colors.grey,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 5,
-                          blurRadius: 7,
-                          offset: Offset(0, 3), // changes position of shadow
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: Offset(0, 0),
                         ),
                       ],
                     ),
                     alignment: Alignment.center,
                     height: 100,
                     width: 50,
-                    margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
+                    margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.black,
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20)
+                          )
                       ),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Icon(Icons.ac_unit),
+                          Container(),
                           Column(
-                            verticalDirection: VerticalDirection.down,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Container(
-                                child: Text('Test'),
+                              Icon(
+                                Icons.access_alarms_outlined,
+                                color: Colors.black,
+                                size: 60,
                               ),
-                              Container(
-                                child: Text('TIME1'),
-                              ),
-                              Icon(Icons.remove),
-                              Container(
-                                child: Text('TIME2'),
-                              )
                             ],
-                          )
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //Font Family sama Size Teks diganti//
+                              RichText(text: TextSpan(
+                                text: "Judul jadwal tertera disini",
+                                style: TextStyle(color: Colors.blue)
+                              )),
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      RichText(text: TextSpan(
+                                        text: "Tanggal Mulai",
+                                        style: TextStyle(color: Colors.black)
+                                      )),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Text(' Jam Mulai '),//Text Harus dikasih Spasi//
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      RichText(text: TextSpan(
+                                        text: "  -  ",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 20
+                                        )
+                                      )),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      RichText(text: TextSpan(
+                                        text: "Tanggal Selesai",
+                                        style: TextStyle(color: Colors.black)
+                                      )),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Text(' Jam Selesai '),//Text Harus dikasih Spasi//
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(),
+                          Container()
                         ],
                       ),
                       onPressed: () {
@@ -114,6 +173,7 @@ class _Home extends State<Home> {
                       },
                     ),
                   );
+                  //Selesai Kotak//
                 },
                 childCount: bottom.length,
               ),
