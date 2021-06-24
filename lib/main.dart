@@ -3,6 +3,7 @@ import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:plands_v1/Home.dart';
+import 'package:plands_v1/splashPage.dart';
 //import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -10,10 +11,13 @@ import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plands_v1/repetitionPage.dart';
 
+
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pland',
+      home: SplashScreenPage(),
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
       initialRoute: '/',

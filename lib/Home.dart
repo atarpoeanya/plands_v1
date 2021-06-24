@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'dart:async';
+// import 'dart:async';
 
-import 'package:path/path.dart';
-import 'package:sqflite/sqflite.dart';
+// import 'package:path/path.dart';
+// import 'package:sqflite/sqflite.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -110,10 +110,11 @@ class _Home extends State<Home> {
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              //Font Family sama Size Teks diganti//
+                              //Font Family sama Size Teks diganti// 
                               Text(
                                 "Judul jadwal tertera disini",
-                                style: TextStyle(color: Colors.blue)
+                                style: GoogleFonts.prompt(
+                                  textStyle: TextStyle(color: Colors.blue, fontSize: 12, height: 1.5))
                               ),
                               Row(
                                 children: [
@@ -121,15 +122,19 @@ class _Home extends State<Home> {
                                     children: [
                                       Text(
                                         "Tanggal Mulai",
-                                        style: TextStyle(color: Colors.black)
+                                        style: GoogleFonts.prompt(
+                                          textStyle: TextStyle(color: Colors.black, fontSize: 11, height: 1.5))
                                       ),
                                       Container(
+                                        padding: EdgeInsets.all(1.5),
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Text(' Jam Mulai '),//Text Harus dikasih Spasi//
+                                        child: Text(' Jam Mulai ',//Text Harus dikasih Spasi//
+                                          style: GoogleFonts.prompt(
+                                            textStyle: TextStyle(color: Colors.black, fontSize: 11, height: 1.5))),
                                       )
                                     ],
                                   ),
@@ -139,7 +144,8 @@ class _Home extends State<Home> {
                                         "  -  ",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 40
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.w800,
                                         )
                                       ),
                                     ],
@@ -148,15 +154,19 @@ class _Home extends State<Home> {
                                     children: [
                                       Text(
                                         "Tanggal Selesai",
-                                        style: TextStyle(color: Colors.black)
+                                        style: GoogleFonts.prompt(
+                                          textStyle: TextStyle(color: Colors.black, fontSize: 11, height: 1.5))
                                       ),
                                       Container(
+                                        padding: EdgeInsets.all(1.5),
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Text(' Jam Selesai '),//Text Harus dikasih Spasi//
+                                        child: Text(' Jam Selesai ',//Text Harus dikasih Spasi//
+                                        style: GoogleFonts.prompt(
+                                          textStyle: TextStyle(color: Colors.black, fontSize: 11, height: 1.5))),
                                       )
                                     ],
                                   )
@@ -221,13 +231,13 @@ class _Home extends State<Home> {
   }
 }
 
-class Jadwal {
-  final String nama;
-  final DateTime firstDate;
-  final DateTime secondDate;
+// class Jadwal {
+//   final String nama;
+//   final DateTime firstDate;
+//   final DateTime secondDate;
 
-  Jadwal(
-      {@required this.nama,
-      @required this.firstDate,
-      @required this.secondDate});
-}
+//   Jadwal(
+//       {@required this.nama,
+//       @required this.firstDate,
+//       @required this.secondDate});
+// }
