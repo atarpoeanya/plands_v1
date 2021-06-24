@@ -90,73 +90,69 @@ class _Home extends State<Home> {
                       style: ElevatedButton.styleFrom(
                           primary: Colors.white,
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20)
-                          )
-                      ),
+                              borderRadius: BorderRadius.circular(20))),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Container(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.access_alarms_outlined,
-                                color: Colors.black,
-                                size: 60,
-                              ),
-                            ],
+                          Icon(
+                            Icons.access_alarms_outlined,
+                            color: Colors.black,
+                            size: 60,
                           ),
+                          Spacer(),
                           Column(
                             mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               //Font Family sama Size Teks diganti//
-                              Text(
+                              Container(
+                                  child: Text(
                                 "Judul jadwal tertera disini",
-                                style: TextStyle(color: Colors.blue)
-                              ),
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                                textAlign: TextAlign.left,
+                              )),
+
                               Row(
                                 children: [
                                   Column(
                                     children: [
-                                      Text(
-                                        "Tanggal Mulai",
-                                        style: TextStyle(color: Colors.black)
-                                      ),
+                                      Text("Tanggal Mulai",
+                                          style:
+                                              TextStyle(color: Colors.black)),
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Text(' Jam Mulai '),//Text Harus dikasih Spasi//
+                                        child: Text(
+                                            ' Jam Mulai '), //Text Harus dikasih Spasi//
                                       )
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      Text(
-                                        "  -  ",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontSize: 40
-                                        )
-                                      ),
+                                      Text("  -  ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 40)),
                                     ],
                                   ),
                                   Column(
                                     children: [
-                                      Text(
-                                        "Tanggal Selesai",
-                                        style: TextStyle(color: Colors.black)
-                                      ),
+                                      Text("Tanggal Selesai",
+                                          style:
+                                              TextStyle(color: Colors.black)),
                                       Container(
                                         decoration: BoxDecoration(
                                           color: Colors.grey,
                                           borderRadius:
                                               BorderRadius.circular(20),
                                         ),
-                                        child: Text(' Jam Selesai '),//Text Harus dikasih Spasi//
+                                        child: Text(
+                                            ' Jam Selesai '), //Text Harus dikasih Spasi//
                                       )
                                     ],
                                   )

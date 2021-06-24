@@ -1,23 +1,29 @@
-import 'dart:html';
 import 'dart:io';
 import 'dart:async';
 
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'jadwalModel.dart';
+import 'package:plands_v1/jadwalModel.dart';
 import 'package:path/path.dart';
 
+// Tabel Jadwal
+// Id  |  nama  |  timeStart  |  timeEnd  |  hasAlarm / isRepeating
+//  1     ...       ...      ....        0
+//  2     ...       ...      ....        0
+//  3     ...       ...      ....        0
+
 class DBProvider {
-  DBProvider._();
+  String namaTable = 'jadwal';
+
   static final DBProvider db = DBProvider._();
+  DBProvider._();
 
   static Database _database;
 
   Future<Database> get database async {
-    if (_database != null) return _database;
-
-    //iff _database null
-    _database = await initDB();
+    if (_database != null)
+      //iff _database null
+      _database = await initDB();
     return _database;
   }
 
@@ -26,7 +32,7 @@ class DBProvider {
     String path = join(docsDirectory.path, "Plands.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE Jadwal ("
+      await db.execute("CREATE TABLE jadwal ("
           "id INTEGER PRIMARY KEY,"
           "nama TEXT,"
           "timeStart TEXT,"
@@ -36,23 +42,24 @@ class DBProvider {
     });
   }
 
+  Future<List<Map<String, dynamic>>> getMapList() async {
+    Database db = await database;
+    final List<Map<String, dynamic>> result = await db.query(namaTable);
+    return result;
+  }
+
+  Future<List<Jadwal>> getList() async {
+    final List<Map<String, dynamic>> expensesMapList = await getMapList();
+    final List<Jadwal> expensesList = [];
+    expensesMapList.forEach((expensesMap) {
+      expensesList.add(Jadwal.fromJson(expensesMap));
+    });
+    return expensesList;
+  }
+
   newJadwal(Jadwal newJadwal) async {
     final db = await database;
-    //get the biggest id in the table
-    var table = await db.rawQuery("SELECT MAX(id)+1 as id FROM Client");
-    int id = table.first["id"];
-    //insert to the table using the new id
-    var raw = await db.rawInsert(
-        "INSERT Into Jadwal (id,nama,timeStart,timeEnd,hasAlarm,isRepeating)"
-        " VALUES (?,?,?,?,?,?)",
-        [
-          id,
-          newJadwal.nama,
-          newJadwal.timeStart,
-          newJadwal.timeEnd,
-          newJadwal.hasAlarm,
-          newJadwal.isRepeating
-        ]);
+    var raw = await db.insert(namaTable, newJadwal.toJson());
     return raw;
   }
 

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'dart:async';
-
+import 'package:plands_v1/main.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class RepetitionPage extends StatefulWidget {
-  // const RepetitionPage({ Key? key }) : super(key: key);
+  int repetationIndex;
+
+  RepetitionPage({Key key, this.repetationIndex}) : super(key: key);
 
   @override
   _RepetitionPageState createState() => _RepetitionPageState();
@@ -15,19 +17,16 @@ class RepetitionPage extends StatefulWidget {
 
 class _RepetitionPageState extends State<RepetitionPage> {
   //Start Index//
-  int repetationIndex = 0;
-  
+  int start = 0;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 0,
-        title: Text(
-          'Repetation', style: TextStyle(color: Colors.black)
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.white
-      ),
+          elevation: 0,
+          title: Text('Repetation', style: TextStyle(color: Colors.black)),
+          centerTitle: true,
+          backgroundColor: Colors.white),
       body: SettingsList(
         backgroundColor: Colors.transparent,
         sections: [
@@ -36,7 +35,8 @@ class _RepetitionPageState extends State<RepetitionPage> {
               title: "Once",
               trailing: trailingWidget(0),
               onPressed: (BuildContext context) {
-              changeRepetition(0);                    },
+                changeRepetition(0);
+              },
             ),
             SettingsTile(
               title: "Daily",
@@ -65,7 +65,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           //Balik ke sebelumnya sambil bawa repetation index//
-          Navigator.pop(context);
+          Navigator.pop(context, widget.repetationIndex);
         },
         elevation: 0,
         child: Container(
@@ -75,9 +75,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
               Radius.circular(100),
             ),
             boxShadow: [
-              BoxShadow(
-                color: Colors.transparent
-              ),
+              BoxShadow(color: Colors.transparent),
             ],
           ),
           child: Icon(
@@ -91,14 +89,14 @@ class _RepetitionPageState extends State<RepetitionPage> {
   }
 
   Widget trailingWidget(int index) {
-    return (repetationIndex == index)
+    return (widget.repetationIndex == index)
         ? Icon(Icons.check, color: Colors.red)
         : Icon(null);
   }
 
   void changeRepetition(int index) {
     setState(() {
-      repetationIndex = index;
+      widget.repetationIndex = index;
     });
   }
 }
