@@ -1,4 +1,5 @@
 import 'dart:html';
+import 'dart:js';
 
 import 'package:flutter/material.dart';
 import 'package:plands_v1/Home.dart';
@@ -7,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:plands_v1/repetitionPage.dart';
 
 void main() {
   runApp(
@@ -20,6 +22,7 @@ void main() {
         '/': (context) => Home(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/second': (context) => AddSchedulePage(),
+        '/third': (context) => RepetitionPage()
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -73,71 +76,81 @@ class _AddSchedulePage extends State {
                 children: [
                   ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[400]),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                          )
-                        )
-                      ),
+                          ))),
                       onPressed: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('From', style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),),
-                            Text('Thu, 22 Apr 2021 21:30', style: TextStyle(color: Colors.black))
+                            Text(
+                              'From',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Text('Thu, 22 Apr 2021 21:30',
+                                style: TextStyle(color: Colors.black))
                           ],
                         ),
                       )),
                   SizedBox(height: 5),
                   ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[400]),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                          )
-                        )
-                      ),
+                          ))),
                       onPressed: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('To', style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),),
-                            Text('Thu, 22 Apr 2021 22:30', style: TextStyle(color: Colors.black))
+                            Text(
+                              'To',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Text('Thu, 22 Apr 2021 22:30',
+                                style: TextStyle(color: Colors.black))
                           ],
                         ),
                       )),
                   SizedBox(height: 5),
                   ElevatedButton(
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-                        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[400]),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
-                          )
-                        )
-                      ),
-                      onPressed: () {},
+                          ))),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/third');
+                      },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Text('Repeat', style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            ),),
+                            Text(
+                              'Repeat',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
                             Text('Once', style: TextStyle(color: Colors.black))
                           ],
                         ),
@@ -147,27 +160,26 @@ class _AddSchedulePage extends State {
               SizedBox(height: 40),
               ElevatedButton(
                 style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-                      borderRadius: BorderRadius.zero,                        )
-                  )
-                ),
+                    backgroundColor:
+                        MaterialStateProperty.all(Colors.grey[400]),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                      borderRadius: BorderRadius.zero,
+                    ))),
                 onPressed: () {},
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Reminder', style: TextStyle(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Reminder',
+                          style: TextStyle(
                               fontWeight: FontWeight.bold,
-                              color: Colors.black
-                            )),
-                            Text('5 minutes before', style: TextStyle(
-                              color: Colors.black
-                            ))
-                          ],
-                        ),
+                              color: Colors.black)),
+                      Text('5 minutes before',
+                          style: TextStyle(color: Colors.black))
+                    ],
+                  ),
                 ),
               ),
               SizedBox(height: 50),
