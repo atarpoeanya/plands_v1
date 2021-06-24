@@ -71,7 +71,7 @@ class _Home extends State<Home> {
                   return Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),
-                      color: Colors.blue,
+                      color: Colors.grey,
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.5),
@@ -86,6 +86,9 @@ class _Home extends State<Home> {
                     width: 50,
                     margin: EdgeInsets.fromLTRB(40, 20, 40, 20),
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.black,
+                      ),
                       child: Row(
                         children: [
                           Icon(Icons.ac_unit),
