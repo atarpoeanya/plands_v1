@@ -1,19 +1,23 @@
 import 'dart:html';
 import 'dart:js';
 
-import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:plands_v1/Home.dart';
+import 'package:plands_v1/splashPage.dart';
+//import 'package:flutter/painting.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+import 'package:flutter_rounded_date_picker/rounded_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plands_v1/repetitionPage.dart';
+
 
 void main() {
   runApp(
     MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Pland',
+      home: SplashScreenPage(),
       // Start the app with the "/" named route. In this case, the app starts
       // on the FirstScreen widget.
       initialRoute: '/',
@@ -40,20 +44,7 @@ class AddSchedulePage extends StatefulWidget {
 }
 
 class _AddSchedulePage extends State {
-  int id = 0;
-  String nama = 'Once';
-  DateTime timeStart = DateTime.now();
-  DateTime timeEnd = DateTime.now();
-  ValueNotifier<DateTime> _timeStart = ValueNotifier<DateTime>(DateTime.now());
-  ValueNotifier<DateTime> _timeEnd = ValueNotifier<DateTime>(DateTime.now());
-
-  int hasAlarm = 1;
-  int isRepeating = 0;
-
-  String tempRep = 'Once';
-
-  ValueNotifier<int> _isRepeating = ValueNotifier<int>(0);
-  ValueNotifier<int> _hasAlarm = ValueNotifier<int>(1);
+  int i = 0;
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -67,11 +58,6 @@ class _AddSchedulePage extends State {
               SizedBox(height: 40),
               Container(
                 child: TextField(
-                  onSubmitted: (text) {
-                    nama = text;
-                    updateText();
-                  },
-                  onEditingComplete: () {},
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 0),
@@ -101,15 +87,7 @@ class _AddSchedulePage extends State {
                                   RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
                           ))),
-                      onPressed: () {
-                        DatePicker.showDateTimePicker(context,
-                            minTime: DateTime.now(),
-                            maxTime: DateTime(2100, 1, 1, 00, 00),
-                            onConfirm: (date) {
-                          timeStart = date;
-                          _timeStart.value = date;
-                        }, locale: LocaleType.en);
-                      },
+                      onPressed: () {},
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         child: Row(
@@ -121,16 +99,35 @@ class _AddSchedulePage extends State {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
-                            ValueListenableBuilder(
-                                valueListenable: _timeStart,
-                                builder: (BuildContext context,
-                                    DateTime _dateTimeNotifier, Widget child) {
-                                  return Text(
-                                      DateFormat.yMMMMEEEEd()
-                                          .add_jm()
-                                          .format(_dateTimeNotifier),
-                                      style: TextStyle(color: Colors.black));
-                                })
+                            Text('Thu, 22 Apr 2021 21:30',
+                                style: TextStyle(color: Colors.black))
+                          ],
+                        ),
+                      )),
+                  SizedBox(height: 5),
+                  ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(Colors.grey[400]),
+                          shape:
+                              MaterialStateProperty.all<RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ))),
+                      onPressed: () {},
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              'To',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.black),
+                            ),
+                            Text('Thu, 22 Apr 2021 22:30',
+                                style: TextStyle(color: Colors.black))
                           ],
                         ),
                       )),
@@ -145,68 +142,7 @@ class _AddSchedulePage extends State {
                             borderRadius: BorderRadius.zero,
                           ))),
                       onPressed: () {
-                        DatePicker.showDateTimePicker(context,
-                            minTime: _timeStart.value ?? DateTime.now(),
-                            maxTime: DateTime(2100, 1, 1, 00, 00),
-                            onConfirm: (date) {
-                          timeEnd = date;
-                          _timeEnd.value = date;
-                        }, locale: LocaleType.en);
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              'To',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black),
-                            ),
-                            ValueListenableBuilder(
-                                valueListenable: _timeEnd,
-                                builder: (BuildContext context,
-                                    DateTime _dateTimeNotifier, Widget child) {
-                                  return Text(
-                                      DateFormat.yMMMMEEEEd()
-                                          .add_jm()
-                                          .format(_dateTimeNotifier),
-                                      style: TextStyle(color: Colors.black));
-                                })
-                          ],
-                        ),
-                      )),
-                  SizedBox(height: 5),
-                  ElevatedButton(
-                      style: ButtonStyle(
-                          backgroundColor:
-                              MaterialStateProperty.all(Colors.grey[400]),
-                          shape:
-                              MaterialStateProperty.all<RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                            borderRadius: BorderRadius.zero,
-                          ))),
-                      onPressed: () async {
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) => new RepetitionPage(
-                              repetationIndex: _isRepeating.value),
-                        );
-                        _isRepeating.value = await Navigator.of(context).push(
-                            MaterialPageRoute(
-                                builder: (BuildContext context) =>
-                                    new RepetitionPage(
-                                        repetationIndex: _isRepeating.value)));
-                        isRepeating = _isRepeating.value;
-
-                        isRepeating == 0
-                            ? tempRep = 'Once'
-                            : isRepeating == 1
-                                ? tempRep = 'Daily'
-                                : isRepeating == 2
-                                    ? tempRep = 'Weekly'
-                                    : tempRep = 'Monthly';
-                        updateText();
+                        Navigator.pushNamed(context, '/third');
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -219,7 +155,7 @@ class _AddSchedulePage extends State {
                                   fontWeight: FontWeight.bold,
                                   color: Colors.black),
                             ),
-                            Text(tempRep, style: TextStyle(color: Colors.black))
+                            Text('Once', style: TextStyle(color: Colors.black))
                           ],
                         ),
                       )),
@@ -288,15 +224,9 @@ class _AddSchedulePage extends State {
   }
 
   updateText() async {
-    setState(() {});
-  }
-
-  dateMaker(DateTime s, BuildContext context) {
-    DatePicker.showDateTimePicker(context,
-        minTime: DateTime(2010, 1, 1, 00, 00),
-        maxTime: DateTime(2100, 1, 1, 00, 00), onConfirm: (date) {
-      updateText();
-    }, locale: LocaleType.en);
+    setState(() {
+      i = i;
+    });
   }
 
   @override
