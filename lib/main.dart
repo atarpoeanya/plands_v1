@@ -188,10 +188,6 @@ class _AddSchedulePage extends State {
                             borderRadius: BorderRadius.zero,
                           ))),
                       onPressed: () async {
-                        var route = new MaterialPageRoute(
-                          builder: (BuildContext context) => new RepetitionPage(
-                              repetationIndex: _isRepeating.value),
-                        );
                         _isRepeating.value = await Navigator.of(context).push(
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
