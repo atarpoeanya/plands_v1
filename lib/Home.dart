@@ -139,7 +139,7 @@ class _Home extends State<Home> {
                                         "  -  ",
                                         style: TextStyle(
                                           color: Colors.black,
-                                          fontSize: 20
+                                          fontSize: 40
                                         )
                                       ),
                                     ],
