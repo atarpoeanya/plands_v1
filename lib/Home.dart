@@ -23,7 +23,7 @@ class _Home extends State<Home> {
   @override
   Widget build(BuildContext context) {
     const Key centerKey = ValueKey<String>('bottom-sliver-list');
-    return Scaffold(
+    return new Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Text('PLAND',
@@ -70,123 +70,128 @@ class _Home extends State<Home> {
         // margin: EdgeInsets.only(top: 70),
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverList(
-              key: centerKey,
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  //Mulai Kotak//
-                  while (db.tableIsEmpty() != 0) {
-                    db.getjadwal(index);
-                    index++;
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.grey,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.5),
-                            spreadRadius: 1,
-                            blurRadius: 4,
-                            offset: Offset(0, 0),
+            FutureBuilder(
+              future: db.getAll(),
+              builder: (context, jadwal) {
+                var count = 0;
+                if (jadwal.connectionState != ConnectionState.done ||
+                    jadwal.hasData == null)
+                  count = 1;
+                else
+                  count = jadwal.data.length;
+
+                return SliverList(
+                    delegate: SliverChildBuilderDelegate((context, index) {
+                  Jadwal item = jadwal.data[index];
+                  if (jadwal.connectionState != ConnectionState.done)
+                    return CircularProgressIndicator();
+                  if (jadwal.hasData == null)
+                    return Center(child: Text('Nothing to See here'));
+
+                  return Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.grey,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.5),
+                          spreadRadius: 1,
+                          blurRadius: 4,
+                          offset: Offset(0, 0),
+                        ),
+                      ],
+                    ),
+                    alignment: Alignment.center,
+                    height: 100,
+                    width: 50,
+                    margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          primary: Colors.white,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20))),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Icon(
+                            Icons.access_alarms_outlined,
+                            color: Colors.black,
+                            size: 60,
                           ),
+                          Spacer(),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Font Family sama Size Teks diganti//
+                              Container(
+                                  child: Text(
+                                "${item.nama}",
+                                style: TextStyle(
+                                  color: Colors.blue,
+                                ),
+                                textAlign: TextAlign.left,
+                              )),
+
+                              Row(
+                                children: [
+                                  Column(
+                                    children: [
+                                      Text("timeStart",
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Text(
+                                            ' Jam Mulai '), //Text Harus dikasih Spasi//
+                                      )
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text("  -  ",
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 40)),
+                                    ],
+                                  ),
+                                  Column(
+                                    children: [
+                                      Text("timeEnd",
+                                          style:
+                                              TextStyle(color: Colors.black)),
+                                      Container(
+                                        decoration: BoxDecoration(
+                                          color: Colors.grey,
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                        ),
+                                        child: Text(
+                                            ' Jam Selesai '), //Text Harus dikasih Spasi//
+                                      )
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
+                          Container(),
+                          Container()
                         ],
                       ),
-                      alignment: Alignment.center,
-                      height: 100,
-                      width: 50,
-                      margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            primary: Colors.white,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20))),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Icon(
-                              Icons.access_alarms_outlined,
-                              color: Colors.black,
-                              size: 60,
-                            ),
-                            Spacer(),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                //Font Family sama Size Teks diganti//
-                                Container(
-                                    child: Text(
-                                  "$jadwal.nama",
-                                  style: TextStyle(
-                                    color: Colors.blue,
-                                  ),
-                                  textAlign: TextAlign.left,
-                                )),
-
-                                Row(
-                                  children: [
-                                    Column(
-                                      children: [
-                                        Text("$jadwal.timeStart",
-                                            style:
-                                                TextStyle(color: Colors.black)),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Text(
-                                              ' Jam Mulai '), //Text Harus dikasih Spasi//
-                                        )
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text("  -  ",
-                                            style: TextStyle(
-                                                color: Colors.black,
-                                                fontSize: 40)),
-                                      ],
-                                    ),
-                                    Column(
-                                      children: [
-                                        Text("$jadwal.timeEnd",
-                                            style:
-                                                TextStyle(color: Colors.black)),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.grey,
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                          ),
-                                          child: Text(
-                                              ' Jam Selesai '), //Text Harus dikasih Spasi//
-                                        )
-                                      ],
-                                    )
-                                  ],
-                                ),
-                              ],
-                            ),
-                            Container(),
-                            Container()
-                          ],
-                        ),
-                        onPressed: () {
-                          Navigator.pushNamed(context, '/second');
-                        },
-                      ),
-                    );
-                    //Selesai Kotak//
-
-                  }
-
-                  return null;
-                },
-                childCount: bottom.length,
-              ),
-            ),
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/second');
+                      },
+                    ),
+                  );
+                  //Selesai Kotak//
+                }));
+              },
+            )
           ],
         ),
       ),
@@ -232,6 +237,7 @@ class _Home extends State<Home> {
   @override
   void initState() {
     super.initState();
+    db.getAll();
   }
 
   @override

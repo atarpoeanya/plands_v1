@@ -33,7 +33,7 @@ class DBProvider {
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
       await db.execute("CREATE TABLE jadwal ("
-          "id INTEGER PRIMARY KEY,"
+          "id INTEGER PRIMARY KEY AUTOINCREMENT,"
           "nama TEXT,"
           "timeStart TEXT,"
           "timeEnd TEXT,"
@@ -42,22 +42,7 @@ class DBProvider {
     });
   }
 
-  Future<List<Map<String, dynamic>>> getMapList() async {
-    Database db = await database;
-    final List<Map<String, dynamic>> result = await db.query(namaTable);
-    return result;
-  }
-
-  Future<List<Jadwal>> getList() async {
-    final List<Map<String, dynamic>> expensesMapList = await getMapList();
-    final List<Jadwal> expensesList = [];
-    expensesMapList.forEach((expensesMap) {
-      expensesList.add(Jadwal.fromJson(expensesMap));
-    });
-    return expensesList;
-  }
-
-  newJadwal(Jadwal newJadwal) async {
+  Future newJadwal(Jadwal newJadwal) async {
     final db = await database;
     var raw = await db.insert(namaTable, newJadwal.toJson());
     return raw;
@@ -67,6 +52,14 @@ class DBProvider {
     final db = await database;
     var res = await db.query("Jadwal", where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? Jadwal.fromJson(res.first) : null;
+  }
+
+  getAll() async {
+    final db = await database;
+    var res = await db.query("Jadwal");
+    List<Jadwal> list =
+        res.isNotEmpty ? res.map((c) => Jadwal.fromJson(c)).toList() : [];
+    return list;
   }
 
   deleteAll() async {

@@ -253,7 +253,7 @@ class _AddSchedulePage extends State {
               SizedBox(height: 50),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.green),
-                  onPressed: () {
+                  onPressed: () async {
                     print(
                         '$nama, $timeStart, $timeEnd, $isRepeating, $hasAlarm');
                     Jadwal jadwal = Jadwal(
@@ -264,7 +264,8 @@ class _AddSchedulePage extends State {
                         hasAlarm: hasAlarm);
                     debugPrint(jadwal.toString());
 
-                    DBProvider.db.newJadwal(jadwal);
+                    await DBProvider.db.newJadwal(jadwal);
+                    setState(() {});
                     Navigator.pop(context);
                   },
                   child: Container(
