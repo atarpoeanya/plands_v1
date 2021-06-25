@@ -24,7 +24,7 @@ class _RepetitionPageState extends State<RepetitionPage> {
     return Scaffold(
       appBar: AppBar(
           elevation: 0,
-          title: Text('Repetation', style: TextStyle(color: Colors.black)),
+          title: Text('Repetition', style: TextStyle(color: Colors.black)),
           centerTitle: true,
           backgroundColor: Colors.white),
       body: SettingsList(
