@@ -75,10 +75,12 @@ class DBProvider {
   }
 
   Future<int> tableIsEmpty() async {
+    int count = 0;
     var db = await openDatabase('Plands.db');
 
-    int count =
+    count =
         Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM Test'));
+
     return count;
   }
 }

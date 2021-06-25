@@ -1,6 +1,3 @@
-import 'dart:html';
-import 'dart:js';
-
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:plands_v1/Database.dart';
@@ -78,9 +75,7 @@ class _AddSchedulePage extends State {
                     _nama.value = text;
                     nama = _nama.value;
                   },
-                  onEditingComplete: () {
-                    nama = _nama.value;
-                  },
+                  onEditingComplete: () {},
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 0),
@@ -261,15 +256,16 @@ class _AddSchedulePage extends State {
                   onPressed: () {
                     print(
                         '$nama, $timeStart, $timeEnd, $isRepeating, $hasAlarm');
-
                     Jadwal jadwal = Jadwal(
                         nama: nama,
                         timeStart: timeStart.toString(),
                         timeEnd: timeEnd.toString(),
                         isRepeating: isRepeating,
                         hasAlarm: hasAlarm);
+                    debugPrint(jadwal.toString());
 
                     DBProvider.db.newJadwal(jadwal);
+                    Navigator.pop(context);
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width,
