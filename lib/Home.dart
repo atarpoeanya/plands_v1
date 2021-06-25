@@ -46,7 +46,9 @@ class _Home extends State<Home> {
           Padding(
             padding: EdgeInsets.only(right: 20.0),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.pushNamed(context, '/setting');
+              },
               child: Icon(
                 Icons.settings,
                 color: Colors.black,
