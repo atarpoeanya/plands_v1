@@ -8,6 +8,7 @@ import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plands_v1/repetitionPage.dart';
 import 'package:plands_v1/jadwalModel.dart';
+import 'package:plands_v1/SettingPage.dart';
 
 void main() {
   runApp(
@@ -21,7 +22,8 @@ void main() {
         '/': (context) => Home(),
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/second': (context) => AddSchedulePage(),
-        '/third': (context) => RepetitionPage()
+        '/third': (context) => RepetitionPage(),
+        '/setting' : (context) => SettingPage()
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,
@@ -63,6 +65,45 @@ class _AddSchedulePage extends State {
     // TODO: implement build
     try {
       return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          title: Text('PLAND',
+              style: GoogleFonts.righteous(
+                  textStyle: TextStyle(color: Colors.black, fontSize: 30))),
+          backgroundColor: Colors.white,
+          centerTitle: true,
+          leading: IconButton(
+            icon: Icon(
+              Icons.notifications,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+          actions: <Widget>[
+            Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, '/second');
+                },
+                child: Icon(
+                  Icons.settings,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () {},
+                child: Icon(
+                  Icons.person,
+                  color: Colors.black,
+                ),
+              ),
+            ),
+          ],
+        ),
         body: Container(
           margin: EdgeInsets.all(10),
           padding: EdgeInsets.all(5),
