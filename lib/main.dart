@@ -3,12 +3,14 @@ import 'dart:js';
 
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:plands_v1/Database.dart';
 import 'package:plands_v1/Home.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plands_v1/repetitionPage.dart';
+import 'package:plands_v1/jadwalModel.dart';
 
 void main() {
   runApp(
@@ -34,6 +36,9 @@ void main() {
 }
 
 class AddSchedulePage extends StatefulWidget {
+  final Jadwal jadwal;
+
+  const AddSchedulePage({Key key, this.jadwal}) : super(key: key);
   @override
   _AddSchedulePage createState() => _AddSchedulePage();
   //State<Home> createState() => _Home();
@@ -41,7 +46,9 @@ class AddSchedulePage extends StatefulWidget {
 
 class _AddSchedulePage extends State {
   int id = 0;
-  String nama = 'Once';
+  String nama = '';
+  ValueNotifier<String> _nama = ValueNotifier('');
+
   DateTime timeStart = DateTime.now();
   DateTime timeEnd = DateTime.now();
   ValueNotifier<DateTime> _timeStart = ValueNotifier<DateTime>(DateTime.now());
@@ -68,10 +75,12 @@ class _AddSchedulePage extends State {
               Container(
                 child: TextField(
                   onSubmitted: (text) {
-                    nama = text;
-                    updateText();
+                    _nama.value = text;
+                    nama = _nama.value;
                   },
-                  onEditingComplete: () {},
+                  onEditingComplete: () {
+                    nama = _nama.value;
+                  },
                   textAlign: TextAlign.center,
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 0),
@@ -249,7 +258,19 @@ class _AddSchedulePage extends State {
               SizedBox(height: 50),
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.green),
-                  onPressed: () {},
+                  onPressed: () {
+                    print(
+                        '$nama, $timeStart, $timeEnd, $isRepeating, $hasAlarm');
+
+                    Jadwal jadwal = Jadwal(
+                        nama: nama,
+                        timeStart: timeStart.toString(),
+                        timeEnd: timeEnd.toString(),
+                        isRepeating: isRepeating,
+                        hasAlarm: hasAlarm);
+
+                    DBProvider.db.newJadwal(jadwal);
+                  },
                   child: Container(
                       width: MediaQuery.of(context).size.width,
                       height: 50,

@@ -73,4 +73,12 @@ class DBProvider {
     final db = await database;
     db.rawDelete("Delete * from client");
   }
+
+  Future<int> tableIsEmpty() async {
+    var db = await openDatabase('Plands.db');
+
+    int count =
+        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM Test'));
+    return count;
+  }
 }

@@ -4,7 +4,9 @@ import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 
 import 'package:path/path.dart';
+import 'package:plands_v1/jadwalModel.dart';
 import 'package:sqflite/sqflite.dart';
+import 'package:plands_v1/Database.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -13,7 +15,11 @@ class Home extends StatefulWidget {
 
 /// This is the private State class that goes with MyStatefulWidget.
 class _Home extends State<Home> {
+  DBProvider db;
   List<int> bottom = <int>[];
+  Jadwal jadwal;
+  int index = 0;
+
   @override
   Widget build(BuildContext context) {
     const Key centerKey = ValueKey<String>('bottom-sliver-list');
@@ -69,107 +75,112 @@ class _Home extends State<Home> {
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
                   //Mulai Kotak//
-                  return Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.grey,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.grey.withOpacity(0.5),
-                          spreadRadius: 1,
-                          blurRadius: 4,
-                          offset: Offset(0, 0),
-                        ),
-                      ],
-                    ),
-                    alignment: Alignment.center,
-                    height: 100,
-                    width: 50,
-                    margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20))),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Icon(
-                            Icons.access_alarms_outlined,
-                            color: Colors.black,
-                            size: 60,
+                  while (db.tableIsEmpty() != 0) {
+                    db.getjadwal(index);
+                    index++;
+                    return Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Colors.grey,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.grey.withOpacity(0.5),
+                            spreadRadius: 1,
+                            blurRadius: 4,
+                            offset: Offset(0, 0),
                           ),
-                          Spacer(),
-                          Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              //Font Family sama Size Teks diganti//
-                              Container(
-                                  child: Text(
-                                "Judul jadwal tertera disini",
-                                style: TextStyle(
-                                  color: Colors.blue,
-                                ),
-                                textAlign: TextAlign.left,
-                              )),
-
-                              Row(
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text("Tanggal Mulai",
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Text(
-                                            ' Jam Mulai '), //Text Harus dikasih Spasi//
-                                      )
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text("  -  ",
-                                          style: TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 40)),
-                                    ],
-                                  ),
-                                  Column(
-                                    children: [
-                                      Text("Tanggal Selesai",
-                                          style:
-                                              TextStyle(color: Colors.black)),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: Colors.grey,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Text(
-                                            ' Jam Selesai '), //Text Harus dikasih Spasi//
-                                      )
-                                    ],
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                          Container(),
-                          Container()
                         ],
                       ),
-                      onPressed: () {
-                        Navigator.pushNamed(context, '/second');
-                      },
-                    ),
-                  );
-                  //Selesai Kotak//
+                      alignment: Alignment.center,
+                      height: 100,
+                      width: 50,
+                      margin: EdgeInsets.fromLTRB(40, 10, 40, 10),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                            primary: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20))),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Icon(
+                              Icons.access_alarms_outlined,
+                              color: Colors.black,
+                              size: 60,
+                            ),
+                            Spacer(),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                //Font Family sama Size Teks diganti//
+                                Container(
+                                    child: Text(
+                                  "$jadwal.nama",
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                  ),
+                                  textAlign: TextAlign.left,
+                                )),
+
+                                Row(
+                                  children: [
+                                    Column(
+                                      children: [
+                                        Text("$jadwal.timeStart",
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Text(
+                                              ' Jam Mulai '), //Text Harus dikasih Spasi//
+                                        )
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("  -  ",
+                                            style: TextStyle(
+                                                color: Colors.black,
+                                                fontSize: 40)),
+                                      ],
+                                    ),
+                                    Column(
+                                      children: [
+                                        Text("$jadwal.timeEnd",
+                                            style:
+                                                TextStyle(color: Colors.black)),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.grey,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                          ),
+                                          child: Text(
+                                              ' Jam Selesai '), //Text Harus dikasih Spasi//
+                                        )
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                            Container(),
+                            Container()
+                          ],
+                        ),
+                        onPressed: () {
+                          Navigator.pushNamed(context, '/second');
+                        },
+                      ),
+                    );
+                    //Selesai Kotak//
+
+                  }
                 },
                 childCount: bottom.length,
               ),
@@ -215,15 +226,16 @@ class _Home extends State<Home> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
-}
 
-class Jadwal {
-  final String nama;
-  final DateTime firstDate;
-  final DateTime secondDate;
+  @override
+  void initState() {
+    super.initState();
+  }
 
-  Jadwal(
-      {@required this.nama,
-      @required this.firstDate,
-      @required this.secondDate});
+  @override
+  void dispose() {
+    //close Database Connection
+
+    super.dispose();
+  }
 }
