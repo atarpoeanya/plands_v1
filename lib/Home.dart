@@ -186,7 +186,7 @@ class _Home extends State<Home> {
                         ],
                       ),
                       onPressed: () {
-                        Navigator.pushNamed(context, '/second');
+                        Navigator.pushNamed(context, '/add');
                       },
                     ),
                   );
@@ -200,7 +200,7 @@ class _Home extends State<Home> {
       //Bottom navbar//
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.pushNamed(context, '/second');
+          Navigator.pushNamed(context, '/add');
         },
         backgroundColor: Colors.red,
         child: Icon(
