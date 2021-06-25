@@ -23,10 +23,13 @@ class _RepetitionPageState extends State<RepetitionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          elevation: 0,
-          title: Text('Repetition', style: TextStyle(color: Colors.black)),
-          centerTitle: true,
-          backgroundColor: Colors.white),
+        automaticallyImplyLeading: false,
+        elevation: 0,
+        title: Text(
+          'Repetition',
+          style: TextStyle(color: Colors.black, fontSize: 25)),
+        centerTitle: false,
+        backgroundColor: Colors.transparent),
       body: SettingsList(
         backgroundColor: Colors.transparent,
         sections: [
@@ -70,20 +73,20 @@ class _RepetitionPageState extends State<RepetitionPage> {
         elevation: 0,
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.transparent,
+            color: Colors.white,
             borderRadius: BorderRadius.all(
               Radius.circular(100),
             ),
             boxShadow: [
-              BoxShadow(color: Colors.transparent),
+              BoxShadow(color: Colors.white),
             ],
           ),
           child: Icon(
             Icons.arrow_back,
-            color: Colors.white,
+            color: Colors.black,
           ),
         ),
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.white,
       ),
     );
   }
