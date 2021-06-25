@@ -6,10 +6,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:plands_v1/repetitionPage.dart';
+import 'package:plands_v1/RepetitionPage.dart';
 import 'package:plands_v1/jadwalModel.dart';
 import 'package:plands_v1/AddSchedulePage.dart';
 import 'package:plands_v1/SettingPage.dart';
+import 'package:plands_v1/ReminderPage.dart';
 
 void main() {
   runApp(
@@ -24,7 +25,8 @@ void main() {
         // When navigating to the "/second" route, build the SecondScreen widget.
         '/add': (context) => AddSchedulePage(),
         '/third': (context) => RepetitionPage(),
-        '/setting' : (context) => SettingPage()
+        '/setting' : (context) => SettingPage(),
+        '/reminder' : (context) => ReminderPage(),
       },
       localizationsDelegates: [
         GlobalMaterialLocalizations.delegate,

@@ -12,8 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:plands_v1/repetitionPage.dart';
-
+import 'package:plands_v1/RepetitionPage.dart';
 
 class AddSchedulePage extends StatefulWidget {
   final Jadwal jadwal;
@@ -65,7 +64,7 @@ class _AddSchedulePage extends State {
               padding: EdgeInsets.only(right: 20.0),
               child: GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, '/second');
+                  Navigator.pushNamed(context, '/setting');
                 },
                 child: Icon(
                   Icons.settings,
@@ -256,7 +255,9 @@ class _AddSchedulePage extends State {
                         RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ))),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pushNamed(context, '/reminder');
+                },
                 child: Container(
                   width: MediaQuery.of(context).size.width,
                   child: Row(

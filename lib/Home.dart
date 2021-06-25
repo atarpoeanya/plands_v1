@@ -73,7 +73,7 @@ class _Home extends State<Home> {
         child: CustomScrollView(
           slivers: <Widget>[
             FutureBuilder(
-              future: db.getAll(),
+              // future: db.getAll(),
               builder: (context, jadwal) {
                 var count = 0;
                 if (jadwal.connectionState != ConnectionState.done ||
@@ -239,7 +239,7 @@ class _Home extends State<Home> {
   @override
   void initState() {
     super.initState();
-    db.getAll();
+    // db.getAll();
   }
 
   @override
