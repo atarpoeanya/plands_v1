@@ -24,7 +24,7 @@ class Jadwal {
   int hasAlarm;
   int isRepeating;
 
-  factory Jadwal.fromJson(Map<String, dynamic> json) => Jadwal(
+  factory Jadwal.fromJson(Map<String, dynamic> json) => new Jadwal(
         id: json["id"],
         nama: json["nama"],
         timeStart: json["timeStart"],

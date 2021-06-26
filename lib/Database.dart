@@ -15,15 +15,16 @@ import 'package:path/path.dart';
 class DBProvider {
   String namaTable = 'jadwal';
 
-  static final DBProvider db = DBProvider._();
   DBProvider._();
+  static final DBProvider db = DBProvider._();
 
   static Database _database;
 
   Future<Database> get database async {
-    if (_database != null)
-      //iff _database null
-      _database = await initDB();
+    if (_database != null) return _database;
+
+    // if _database is null we instantiate it
+    _database = await initDB();
     return _database;
   }
 
@@ -32,29 +33,24 @@ class DBProvider {
     String path = join(docsDirectory.path, "Plands.db");
     return await openDatabase(path, version: 1, onOpen: (db) {},
         onCreate: (Database db, int version) async {
-      await db.execute("CREATE TABLE jadwal ("
-          "id INTEGER PRIMARY KEY AUTOINCREMENT,"
-          "nama TEXT,"
-          "timeStart TEXT,"
-          "timeEnd TEXT,"
-          "hasAlarm INTEGER,"
-          "isRepeating INTEGER");
+      await db.execute(
+          'CREATE TABLE Jadwal (id INTEGER PRIMARY KEY AUTOINCREMENT, nama TEXT, timeStart TEXT, timeEnd TEXT, hasAlarm INTEGER, isRepeating INTEGER)');
     });
   }
 
-  Future newJadwal(Jadwal newJadwal) async {
+  newJadwal(Jadwal newJadwal) async {
     final db = await database;
-    var raw = await db.insert(namaTable, newJadwal.toJson());
+    var raw = await db.insert("Jadwal", newJadwal.toJson());
     return raw;
   }
 
-  getjadwal(int id) async {
+  Future<Jadwal> getjadwal(int id) async {
     final db = await database;
     var res = await db.query("Jadwal", where: "id = ?", whereArgs: [id]);
     return res.isNotEmpty ? Jadwal.fromJson(res.first) : null;
   }
 
-  getAll() async {
+  Future<List<Jadwal>> getAll() async {
     final db = await database;
     var res = await db.query("Jadwal");
     List<Jadwal> list =
@@ -62,18 +58,20 @@ class DBProvider {
     return list;
   }
 
+  updateClient(Jadwal newJadwal) async {
+    final db = await database;
+    var res = await db.update("Jadwal", newJadwal.toJson(),
+        where: "id = ?", whereArgs: [newJadwal.id]);
+    return res;
+  }
+
+  deleteClient(int id) async {
+    final db = await database;
+    db.delete("Jadwal", where: "id = ?", whereArgs: [id]);
+  }
+
   deleteAll() async {
     final db = await database;
     db.rawDelete("Delete * from client");
-  }
-
-  Future<int> tableIsEmpty() async {
-    int count = 0;
-    var db = await openDatabase('Plands.db');
-
-    count =
-        Sqflite.firstIntValue(await db.rawQuery('SELECT COUNT(*) FROM Test'));
-
-    return count;
   }
 }
