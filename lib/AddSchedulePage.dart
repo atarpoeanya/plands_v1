@@ -1,18 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'dart:async';
-import 'package:path/path.dart';
 import 'package:plands_v1/jadwalModel.dart';
-import 'package:sqflite/sqflite.dart';
 import 'package:plands_v1/Database.dart';
 import 'dart:ui';
-import 'package:flutter/material.dart';
-import 'package:plands_v1/Database.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:plands_v1/RepetitionPage.dart';
+import 'package:plands_v1/JadwalBloc.dart';
 
 class AddSchedulePage extends StatefulWidget {
   final Jadwal jadwal;
@@ -20,10 +14,16 @@ class AddSchedulePage extends StatefulWidget {
   const AddSchedulePage({Key key, this.jadwal}) : super(key: key);
   @override
   _AddSchedulePage createState() => _AddSchedulePage();
-  //State<Home> createState() => _Home();
 }
 
 class _AddSchedulePage extends State {
+//Text validator var
+  final _text = TextEditingController();
+  bool _validate = false;
+
+  final bloc = JadwalBloc();
+
+  //Variabel placeholder
   int id = 0;
   String nama = '';
   ValueNotifier<String> _nama = ValueNotifier('');
@@ -92,6 +92,7 @@ class _AddSchedulePage extends State {
               SizedBox(height: 40),
               Container(
                 child: TextField(
+                  controller: _text,
                   onSubmitted: (text) {
                     _nama.value = text;
                     nama = _nama.value;
@@ -101,6 +102,7 @@ class _AddSchedulePage extends State {
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.only(bottom: 0),
                     labelText: 'NAMA KEGIATAN',
+                    errorText: _validate ? 'Tidak bisa kososng' : null,
                     alignLabelWithHint: true,
                     enabledBorder: UnderlineInputBorder(
                       borderSide: BorderSide(color: Colors.black),
@@ -277,19 +279,19 @@ class _AddSchedulePage extends State {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.green),
                   onPressed: () async {
-                    print(
-                        '$nama, $timeStart, $timeEnd, $isRepeating, $hasAlarm');
-                    Jadwal jadwal = Jadwal(
-                        nama: nama,
-                        timeStart: timeStart.toString(),
-                        timeEnd: timeEnd.toString(),
-                        isRepeating: isRepeating,
-                        hasAlarm: hasAlarm);
-                    debugPrint(jadwal.toString());
+                    setState(() {
+                      _text.text.isEmpty ? _validate = true : _validate = false;
+                    });
+                    if (!_validate && nama != '') {
+                      Jadwal jadwal = Jadwal(
+                          nama: nama,
+                          timeStart: timeStart.toString(),
+                          timeEnd: timeEnd.toString(),
+                          isRepeating: isRepeating,
+                          hasAlarm: hasAlarm);
 
-                    await DBProvider.db.newJadwal(jadwal);
-                    setState(() {});
-                    Navigator.pop(context);
+                      Navigator.pop(context, jadwal);
+                    }
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -305,7 +307,7 @@ class _AddSchedulePage extends State {
               ElevatedButton(
                   style: ElevatedButton.styleFrom(primary: Colors.red),
                   onPressed: () {
-                    Navigator.pop(context);
+                    Navigator.pop(context, false);
                   },
                   child: Container(
                       width: MediaQuery.of(context).size.width,
@@ -337,8 +339,9 @@ class _AddSchedulePage extends State {
   }
 
   @override
-  void initState() {
-    super.initState();
-    updateText();
+  void dispose() {
+    _text.dispose();
+    bloc.dispose();
+    super.dispose();
   }
 }
